@@ -21,6 +21,8 @@ class VoiceSegment:
             wav_audio = AudioSegment.from_file(path, format="mp3")
         elif format_type == "m4a":
             wav_audio = AudioSegment.from_file(path, format="mp4")
+        else:
+            wav_audio = None
 
         return wav_audio, format_type
 
@@ -35,7 +37,8 @@ class VoiceSegment:
         print('开始读入音频', tempfilename)
         sound, audiotype = self.read_wave(audiopath)
         if not sound:
-            print('请选择音频文件')
+            print('您选择的文件不能被识别！请选择程序可以识别的音频文件！')
+            return
 
         # 切割
         print('开始切割')
