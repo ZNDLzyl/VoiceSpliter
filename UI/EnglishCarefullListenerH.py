@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 from UI.EnglishCarefullListener import Ui_MainWindow
 from tkinter import *
 import tkinter.filedialog
+from VoiceHandler.VoiceSegment import VoiceSegment
 
 
 class query_window(QtWidgets.QMainWindow):
@@ -24,5 +25,9 @@ class query_window(QtWidgets.QMainWindow):
         #  拆分选择的文件音频到指定文件夹
         if len(filenames) is not 0:
             for filename in filenames:
-                print(filename)
+                self.ui.plainTextEdit.appendPlainText(filename)
+                self.ui.plainTextEdit.setReadOnly(True)
+                vs = VoiceSegment()
+                vs.split_voice(filename)
+
         #  在音频列表中展示音频项
