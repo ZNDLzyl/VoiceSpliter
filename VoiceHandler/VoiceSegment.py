@@ -34,16 +34,18 @@ class VoiceSegment:
         filename, extension = os.path.splitext(tempfilename)
 
         # 读入音频
-        print('开始读入音频', tempfilename)
         sound, audiotype = self.read_wave(audiopath)
         if not sound:
             print('您选择的文件不能被识别！请选择程序可以识别的音频文件！')
-            return
+            return None, None, None
+        print('已经读入音频', tempfilename)
 
         # 切割
         print('开始切割')
         chunks = split_on_silence(sound, min_silence_len=self.minSilenceLen, silence_thresh=self.silenceThresh)
 
+        # 准备文件夹
+        print('开始准备文件夹')
         chunks_path = self.root + '\\'
         if not os.path.exists(chunks_path):
             os.mkdir(chunks_path)
@@ -55,18 +57,20 @@ class VoiceSegment:
         else:
             os.mkdir(chunks_path)
 
+        return audiotype, chunks, chunks_path
+
+    def save_voice(self, audiotype, chunks, chunks_path):
         print('开始保存音频片段')
-        totalSec = 0  # 对于小于特定秒数的音频进行合并
+
         index = 0  # 第几段音频
         for j in range(len(chunks)):
             new = chunks[j]
-            totalSec = new.duration_seconds
+            totalSec = new.duration_seconds  # 对于小于特定秒数的音频进行合并
             if totalSec > self.voiceLen:
                 index += 1
                 save_name = chunks_path + '{}.{}'.format(index, audiotype)
                 new.export(save_name, format=audiotype)
-                totalSec = 0
-                # print('{}\t{}\t{}'.format(i + init_id, index, new.duration_seconds))
+                print('已经保存音频片段{} 音频时间为{}秒'.format(index, round(totalSec, 2)))
             elif totalSec <= self.voiceLen:
                 # 如果音频小于7000ms 那么把它和后面一个音频进行合并
                 if j < len(chunks) - 1:
@@ -76,7 +80,6 @@ class VoiceSegment:
                     index += 1
                     save_name = chunks_path + '{}.{}'.format(index, audiotype)
                     new.export(save_name, format=audiotype)
-                    totalSec = 0
-                    # print('{}\t{}\t{}'.format(i + init_id, index, new.duration_seconds))
+                    print('已经保存音频片段{} 音频时间为{}秒'.format(index, round(totalSec, 2)))
 
         print('保存完毕')
