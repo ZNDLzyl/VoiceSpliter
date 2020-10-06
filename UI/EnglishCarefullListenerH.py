@@ -4,6 +4,14 @@ from UI.EnglishCarefullListener import Ui_MainWindow
 from tkinter import *
 import tkinter.filedialog
 from VoiceHandler.VoiceSegment import VoiceSegment
+import os
+
+
+def show_sound_list(file_dir):
+    # 在列表中列出所有听力材料的名字（文件夹名称）
+    items = os.listdir(file_dir)
+    for item in items:
+        print(item)
 
 
 class query_window(QtWidgets.QMainWindow):
@@ -11,6 +19,7 @@ class query_window(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.rootPath = r'D:\Code\PycharmProjects\VoiceSpliter\SoundSource'
 
         # 给button 的 点击动作绑定一个事件处理函数
         self.ui.addVoiceButton.clicked.connect(self.addVoice)
@@ -43,3 +52,4 @@ class query_window(QtWidgets.QMainWindow):
                 self.ui.plainTextEdit.appendPlainText('保存完毕')
 
         #  在音频列表中展示音频项
+        show_sound_list(self.rootPath)
