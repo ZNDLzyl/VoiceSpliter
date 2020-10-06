@@ -7,13 +7,6 @@ from VoiceHandler.VoiceSegment import VoiceSegment
 import os
 
 
-def show_sound_list(file_dir):
-    # 在列表中列出所有听力材料的名字（文件夹名称）
-    items = os.listdir(file_dir)
-    for item in items:
-        print(item)
-
-
 class query_window(QtWidgets.QMainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
@@ -22,9 +15,9 @@ class query_window(QtWidgets.QMainWindow):
         self.rootPath = r'D:\Code\PycharmProjects\VoiceSpliter\SoundSource'
 
         # 给button 的 点击动作绑定一个事件处理函数
-        self.ui.addVoiceButton.clicked.connect(self.addVoice)
+        self.ui.addVoiceButton.clicked.connect(self.add_voice)
 
-    def addVoice(self):
+    def add_voice(self):
         #  弹出弹窗选择文件内容（可以批量）
         root = Tk()
         root.withdraw()  # 将Tkinter.Tk()实例隐藏
@@ -52,4 +45,11 @@ class query_window(QtWidgets.QMainWindow):
                 self.ui.plainTextEdit.appendPlainText('保存完毕')
 
         #  在音频列表中展示音频项
-        show_sound_list(self.rootPath)
+        self.show_sound_list(self.rootPath)
+
+    def show_sound_list(self, file_dir):
+        # 在列表中列出所有听力材料的名字（文件夹名称）
+        items = os.listdir(file_dir)
+        for item in items:
+            print(item)
+            self.ui.soundVoiceList.addItem(item)
