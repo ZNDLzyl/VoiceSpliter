@@ -1,8 +1,8 @@
 #  a demo to test the QT
 
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets
 import sys
-from QTUI import query_window
+from Demo.QTUI import query_window
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

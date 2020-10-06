@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 
-from demoQT import Ui_MainWindow
+from Demo.demoQT import Ui_MainWindow
 
 
 class query_window(QtWidgets.QMainWindow):
