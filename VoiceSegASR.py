@@ -5,6 +5,7 @@
 @time: 2020/5/10 0010 15:18
 @author: Jack
 @contact: jack18588951684@163.com
+changed by zyl
 '''
 # silence_thresh是认定小于-50dBFS以下的为silence，发现小于-50dBFS部分超过 600毫秒，就进行拆分
 
