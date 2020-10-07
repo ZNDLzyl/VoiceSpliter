@@ -5,10 +5,11 @@ from tkinter import *
 from PyQt5 import QtWidgets
 import shutil
 from UI.EnglishCarefullListener import Ui_MainWindow
+from UI.PlaySoundForm import Ui_PlaySoundForm
 from VoiceHandler.VoiceSegment import VoiceSegment
 
 
-class query_window(QtWidgets.QMainWindow):
+class PlaySoundForm(QtWidgets.QMainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
@@ -18,6 +19,7 @@ class query_window(QtWidgets.QMainWindow):
         # 给button 的 点击动作绑定一个事件处理函数
         self.ui.addVoiceButton.clicked.connect(self.add_voice)
         self.ui.delVoiceButton.clicked.connect(self.del_voice)
+        self.ui.playVoiceButton.clicked.connect(self.play_voice)
 
         # 显示播放列表
         self.show_sound_list(self.rootPath)
@@ -72,3 +74,10 @@ class query_window(QtWidgets.QMainWindow):
             # 清除播放列表重新加载
             self.ui.soundVoiceList.clear()
             self.show_sound_list(self.rootPath)
+
+    def play_voice(self):
+        # 新开一个窗口
+        self.form2 = QtWidgets.QWidget()
+        self.ui2 = Ui_PlaySoundForm()
+        self.ui2.setupUi(self.form2)
+        self.form2.show()
