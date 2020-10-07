@@ -1,10 +1,11 @@
-from PyQt5 import QtWidgets
-
-from UI.EnglishCarefullListener import Ui_MainWindow
-from tkinter import *
-import tkinter.filedialog
-from VoiceHandler.VoiceSegment import VoiceSegment
 import os
+import tkinter.filedialog
+from tkinter import *
+
+from PyQt5 import QtWidgets
+import shutil
+from UI.EnglishCarefullListener import Ui_MainWindow
+from VoiceHandler.VoiceSegment import VoiceSegment
 
 
 class query_window(QtWidgets.QMainWindow):
@@ -16,6 +17,10 @@ class query_window(QtWidgets.QMainWindow):
 
         # 给button 的 点击动作绑定一个事件处理函数
         self.ui.addVoiceButton.clicked.connect(self.add_voice)
+        self.ui.delVoiceButton.clicked.connect(self.del_voice)
+
+        # 显示播放列表
+        self.show_sound_list(self.rootPath)
 
     def add_voice(self):
         #  弹出弹窗选择文件内容（可以批量）
@@ -53,3 +58,17 @@ class query_window(QtWidgets.QMainWindow):
         for item in items:
             print(item)
             self.ui.soundVoiceList.addItem(item)
+
+    def del_voice(self):
+        # 读取被选中的文件夹位置
+        dirnames = self.ui.soundVoiceList.selectedItems()
+        for dirname in dirnames:
+            dirpath = os.path.join(self.rootPath, dirname.text())
+
+            # 删除文件夹
+            if os.path.exists(dirpath):
+                shutil.rmtree(dirpath)
+
+            # 清除播放列表重新加载
+            self.ui.soundVoiceList.clear()
+            self.show_sound_list(self.rootPath)
