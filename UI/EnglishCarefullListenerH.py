@@ -5,8 +5,7 @@ from tkinter import *
 from PyQt5 import QtWidgets
 import shutil
 from UI.EnglishCarefullListener import Ui_MainWindow
-from UI.PlaySoundFormH import PlaySoundForm
-from UI.PlaySoundForm import Ui_PlaySoundForm
+from UI.PlaySoundFormH import PlaySoundWin
 from VoiceHandler.VoiceSegment import VoiceSegment
 
 
@@ -82,7 +81,5 @@ class query_window(QtWidgets.QMainWindow):
             return
 
         # 新开一个窗口
-        self.form2 = QtWidgets.QWidget()
-        self.ui2 = Ui_PlaySoundForm()
-        self.ui2.setupUi(self.form2)
+        self.form2 = PlaySoundWin()
         self.form2.show()

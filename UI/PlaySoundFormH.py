@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets
 from UI.PlaySoundForm import Ui_PlaySoundForm
 
 
-class PlaySoundForm(QtWidgets.QMainWindow):
+class PlaySoundWin(QtWidgets.QMainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_PlaySoundForm()
