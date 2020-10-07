@@ -1,12 +1,13 @@
 from PyQt5 import QtWidgets
 from UI.PlaySoundForm import Ui_PlaySoundForm
 
-class query_window(QtWidgets.QMainWindow):
+
+class PlaySoundForm(QtWidgets.QMainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_PlaySoundForm()
         self.ui.setupUi(self)
-        self.rootPath = r'D:\Code\PycharmProjects\VoiceSpliter\SoundSource'
+        # self.dirPath = dir_path
 
         # 给button 的 点击动作绑定一个事件处理函数
         self.ui.preVoiceButton.clicked.connect(self.pre_voice)

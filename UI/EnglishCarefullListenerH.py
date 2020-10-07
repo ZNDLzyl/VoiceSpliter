@@ -5,11 +5,12 @@ from tkinter import *
 from PyQt5 import QtWidgets
 import shutil
 from UI.EnglishCarefullListener import Ui_MainWindow
+from UI.PlaySoundFormH import PlaySoundForm
 from UI.PlaySoundForm import Ui_PlaySoundForm
 from VoiceHandler.VoiceSegment import VoiceSegment
 
 
-class PlaySoundForm(QtWidgets.QMainWindow):
+class query_window(QtWidgets.QMainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
@@ -58,7 +59,6 @@ class PlaySoundForm(QtWidgets.QMainWindow):
         # 在列表中列出所有听力材料的名字（文件夹名称）
         items = os.listdir(file_dir)
         for item in items:
-            print(item)
             self.ui.soundVoiceList.addItem(item)
 
     def del_voice(self):
@@ -76,6 +76,11 @@ class PlaySoundForm(QtWidgets.QMainWindow):
             self.show_sound_list(self.rootPath)
 
     def play_voice(self):
+        # 读取被选中的文件夹位置
+        dirnames = self.ui.soundVoiceList.selectedItems()
+        if len(dirnames) == 0:
+            return
+
         # 新开一个窗口
         self.form2 = QtWidgets.QWidget()
         self.ui2 = Ui_PlaySoundForm()
