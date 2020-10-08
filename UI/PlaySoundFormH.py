@@ -3,11 +3,11 @@ from UI.PlaySoundForm import Ui_PlaySoundForm
 
 
 class PlaySoundWin(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self, dir_path):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_PlaySoundForm()
         self.ui.setupUi(self)
-        # self.dirPath = dir_path
+        self.dirPath = dir_path
 
         # 给button 的 点击动作绑定一个事件处理函数
         self.ui.preVoiceButton.clicked.connect(self.pre_voice)
@@ -18,6 +18,7 @@ class PlaySoundWin(QtWidgets.QMainWindow):
 
     def pre_voice(self):
         print('pre_voice')
+        print(self.dirPath)
 
     def play_voice(self):
         print('play_voice')

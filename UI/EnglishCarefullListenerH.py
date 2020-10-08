@@ -79,7 +79,8 @@ class query_window(QtWidgets.QMainWindow):
         dirnames = self.ui.soundVoiceList.selectedItems()
         if len(dirnames) == 0:
             return
+        dirpath = os.path.join(self.rootPath, dirnames[0].text())
 
         # 新开一个窗口
-        self.form2 = PlaySoundWin()
+        self.form2 = PlaySoundWin(dirpath)
         self.form2.show()
