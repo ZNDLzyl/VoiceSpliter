@@ -8,7 +8,6 @@ class VoicePlayer:
         self.dirPath = dir_path
         self.curIndex = 1
         self.finalIndex = self.get_final_index()
-        print(self.finalIndex)
 
     def get_final_index(self):
         maxIndex = 0
@@ -18,7 +17,7 @@ class VoicePlayer:
         for fileName in filelist:
             # 去掉文件名后缀
             filename, _ = os.path.splitext(fileName)
-            # 转为数字取最大的一个
+            # 文件名转为数字 取最大的一个
             if maxIndex < int(filename):
                 maxIndex = int(filename)
         return maxIndex
