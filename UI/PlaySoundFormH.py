@@ -20,13 +20,13 @@ class PlaySoundWin(QtWidgets.QMainWindow):
         print('pre_voice')
 
     def play_voice(self):
-        print('')
+        print('play_voice')
 
     def pause_voice(self):
-        print('')
+        print('pause_voice')
 
     def next_voice(self):
-        print('')
+        print('next_voice')
 
     def repeate_voice(self):
-        print('')
+        print('repeate_voice')
