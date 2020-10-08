@@ -5,26 +5,27 @@ from pydub import AudioSegment
 from pydub.silence import split_on_silence
 
 
+#  读取文件
+def read_wave(path):
+    format_type = path.split(".")[-1]
+    if format_type in ["wav", "WAV"]:
+        wav_audio = AudioSegment.from_file(path, format="wav")
+    elif format_type == "mp3":
+        wav_audio = AudioSegment.from_file(path, format="mp3")
+    elif format_type == "m4a":
+        wav_audio = AudioSegment.from_file(path, format="mp4")
+    else:
+        wav_audio = None
+
+    return wav_audio, format_type
+
+
 class VoiceSegment:
     root = r'D:\Code\PycharmProjects\VoiceSpliter\SoundSource'
     audiopath_lst = []
     voiceLen = 7  # 句子不能短于的时间长度（s）
     minSilenceLen = 200  # 发现小于音量超过的时间间隔（ms）
     silenceThresh = -40  # 发现小于的音量（BFS）
-
-    #  读取文件
-    def read_wave(self, path):
-        format_type = path.split(".")[-1]
-        if format_type in ["wav", "WAV"]:
-            wav_audio = AudioSegment.from_file(path, format="wav")
-        elif format_type == "mp3":
-            wav_audio = AudioSegment.from_file(path, format="mp3")
-        elif format_type == "m4a":
-            wav_audio = AudioSegment.from_file(path, format="mp4")
-        else:
-            wav_audio = None
-
-        return wav_audio, format_type
 
     #  对给定path的文件进行拆分
     def split_voice(self, audiopath):
@@ -34,7 +35,7 @@ class VoiceSegment:
         filename, extension = os.path.splitext(tempfilename)
 
         # 读入音频
-        sound, audiotype = self.read_wave(audiopath)
+        sound, audiotype = read_wave(audiopath)
         if not sound:
             print('您选择的文件不能被识别！请选择程序可以识别的音频文件！')
             return None, None, None

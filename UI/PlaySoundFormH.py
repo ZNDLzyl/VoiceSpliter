@@ -9,7 +9,6 @@ class PlaySoundWin(QtWidgets.QMainWindow):
         self.ui = Ui_PlaySoundForm()
         self.ui.setupUi(self)
         self.dirPath = dir_path
-        self.vp = VoicePlayer(dir_path)
 
         # 给button 的 点击动作绑定一个事件处理函数
         self.ui.preVoiceButton.clicked.connect(self.pre_voice)
@@ -17,6 +16,10 @@ class PlaySoundWin(QtWidgets.QMainWindow):
         self.ui.pauseVoiceButton.clicked.connect(self.pause_voice)
         self.ui.nextVoiceButton.clicked.connect(self.next_voice)
         self.ui.repeateVoiceButton.clicked.connect(self.repeate_voice)
+
+        # 打开播放器
+        self.vp = VoicePlayer(dir_path)
+        self.vp.play_voice()
 
     def pre_voice(self):
         print('pre_voice')
