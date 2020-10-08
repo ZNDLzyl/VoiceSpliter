@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets
 from UI.PlaySoundForm import Ui_PlaySoundForm
+from VoiceHandler.VoicePlayer import VoicePlayer
 
 
 class PlaySoundWin(QtWidgets.QMainWindow):
@@ -8,6 +9,7 @@ class PlaySoundWin(QtWidgets.QMainWindow):
         self.ui = Ui_PlaySoundForm()
         self.ui.setupUi(self)
         self.dirPath = dir_path
+        self.vp = VoicePlayer(dir_path)
 
         # 给button 的 点击动作绑定一个事件处理函数
         self.ui.preVoiceButton.clicked.connect(self.pre_voice)

@@ -7,3 +7,5 @@ from pydub.playback import play
 soundPath = r'D:\Code\PycharmProjects\VoiceSpliter\Test\afghan-woman-earns-top-marks-on-national-exams.mp3'
 song = AudioSegment.from_file(soundPath, format="mp3")
 play(song)
+
+# test pygame 暂停 播放 停止功能
