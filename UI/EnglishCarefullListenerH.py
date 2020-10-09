@@ -55,6 +55,8 @@ class query_window(QtWidgets.QMainWindow):
         self.show_sound_list(self.rootPath)
 
     def show_sound_list(self, file_dir):
+        self.ui.soundVoiceList.clear()
+
         # 在列表中列出所有听力材料的名字（文件夹名称）
         items = os.listdir(file_dir)
         for item in items:
@@ -70,8 +72,7 @@ class query_window(QtWidgets.QMainWindow):
             if os.path.exists(dirpath):
                 shutil.rmtree(dirpath)
 
-            # 清除播放列表重新加载
-            self.ui.soundVoiceList.clear()
+            # 重新加载播放列表
             self.show_sound_list(self.rootPath)
 
     def play_voice(self):
