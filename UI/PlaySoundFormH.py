@@ -33,6 +33,7 @@ class PlaySoundWin(QtWidgets.QMainWindow):
         curPath = os.path.join(self.dirPath, '{}{}'.format(self.curIndex, self.fileExtension))
         pygame.mixer.music.load(curPath)
         pygame.mixer.music.play(0)
+        self.ispause = False
 
     def pre_voice(self):
         if self.curIndex > 1:
