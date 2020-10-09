@@ -1,6 +1,9 @@
+import os
+
+import pygame
 from PyQt5 import QtWidgets
+
 from UI.PlaySoundForm import Ui_PlaySoundForm
-from VoiceHandler.VoicePlayer import VoicePlayer
 
 
 class PlaySoundWin(QtWidgets.QMainWindow):
@@ -18,21 +21,64 @@ class PlaySoundWin(QtWidgets.QMainWindow):
         self.ui.repeateVoiceButton.clicked.connect(self.repeate_voice)
 
         # 打开播放器
-        self.vp = VoicePlayer(dir_path)
-        self.vp.play_voice()
+        self.curIndex = 1
+        self.finalIndex, self.fileExtension = self.get_final_index()
+        self.ispause = False
+        pygame.mixer.init()
+
+    def __del__(self):
+        print('deleteplaysoundform')
+
+    def play_voice_at_beginning(self):
+        curPath = os.path.join(self.dirPath, '{}{}'.format(self.curIndex, self.fileExtension))
+        pygame.mixer.music.load(curPath)
+        pygame.mixer.music.play(0)
 
     def pre_voice(self):
+        if self.curIndex > 1:
+            self.curIndex -= 1
+        else:
+            self.curIndex = self.finalIndex
+        self.play_voice_at_beginning()
         print('pre_voice')
-        print(self.dirPath)
 
     def play_voice(self):
+        if not self.ispause:
+            self.play_voice_at_beginning()
+        else:
+            pygame.mixer.music.unpause()
+            self.ispause = False
+
         print('play_voice')
 
     def pause_voice(self):
+        pygame.mixer.music.pause()
+        self.ispause = True
         print('pause_voice')
 
     def next_voice(self):
+        if self.curIndex < self.finalIndex:
+            self.curIndex += 1
+        else:
+            self.curIndex = 1
+        self.play_voice_at_beginning()
         print('next_voice')
 
     def repeate_voice(self):
+        self.play_voice_at_beginning()
         print('repeate_voice')
+
+    def get_final_index(self):
+        maxIndex = 0
+        fileExtension = ''
+
+        # 获取目录中所有文件名
+        filelist = os.listdir(self.dirPath)  # 默认所有都是文件
+        for fileName in filelist:
+            # 去掉文件名后缀
+            filename, extension = os.path.splitext(fileName)
+            # 文件名转为数字 取最大的一个
+            if maxIndex < int(filename):
+                maxIndex = int(filename)
+                fileExtension = extension
+        return maxIndex, fileExtension
